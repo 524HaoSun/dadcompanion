@@ -4,11 +4,12 @@
  * 4 sections: Home, Dad Community, Mom Status, Medical Support
  */
 
-import { Home, Users, Heart, ShieldPlus, Baby } from "lucide-react";
+import { Home, Users, Heart, ShieldPlus } from "lucide-react";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
 import { usePregnancy } from "@/hooks/usePregnancy";
 import { getTrimesterName } from "@/lib/pregnancyData";
+import { PapaPathMark } from "@/components/PapaPathLogo";
 
 const navItems = [
   { id: "home", label: "Home", icon: Home, path: "/" },
@@ -73,10 +74,10 @@ export default function SidebarNav() {
       {/* Logo / Brand */}
       <div className="flex items-center gap-3 px-6 py-6 border-b" style={{ borderColor: "oklch(0.90 0.018 80)" }}>
         <div
-          className="w-9 h-9 rounded-xl flex items-center justify-center"
-          style={{ background: "oklch(0.52 0.09 188)" }}
+          className="w-10 h-10 flex items-center justify-center"
+          style={{ filter: "drop-shadow(0 4px 8px rgba(11, 86, 92, 0.16))" }}
         >
-          <Baby className="w-5 h-5 text-white" />
+          <PapaPathMark className="h-10 w-10" />
         </div>
         <div>
           <div

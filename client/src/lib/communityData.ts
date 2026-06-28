@@ -3,26 +3,28 @@
  */
 
 // ─── Image Map ────────────────────────────────────────────────────────────────
+const MANUS_ASSET_BASE = `${import.meta.env.BASE_URL}assets/manus/`;
+
 export const COMMUNITY_IMAGES = {
-  hero_dad_forum: "/manus-storage/hero-dad-forum_3f878bbf.jpg",
-  hero_dad_hub: "/manus-storage/hero-dad-hub_778155a5.jpg",
-  article_sleep: "/manus-storage/art-massage_f900a579.jpg",
-  article_anxiety: "/manus-storage/art-emotions_cc1f2d1f.jpg",
-  article_labor: "/manus-storage/art-birth-plan_9cdf80e7.jpg",
-  banner_hospital: "/manus-storage/banner-hospital_9fe0f518.jpg",
-  library_books: "/manus-storage/library-books_8bc5af26.jpg",
-  banner_communication: "/manus-storage/banner-communication_a8926c4e.jpg",
-  banner_emotional: "/manus-storage/banner-emotional_5cb0d012.jpg",
-  banner_practical: "/manus-storage/banner-practical_c0966f2b.jpg",
-  art_fetal_kick: "/manus-storage/art-fetal-kick_eb4e898d.jpg",
-  art_birth_plan: "/manus-storage/art-birth-plan_9cdf80e7.jpg",
-  art_massage: "/manus-storage/art-massage_f900a579.jpg",
-  art_hospital_bag: "/manus-storage/art-hospital-bag_46a7fd31.jpg",
-  art_breathing: "/manus-storage/art-breathing_40edfa50.jpg",
-  art_communication: "/manus-storage/art-communication_90411e4b.jpg",
-  art_nutrition: "/manus-storage/art-nutrition_87e071fc.jpg",
-  art_emotions: "/manus-storage/art-emotions_cc1f2d1f.jpg",
-  art_checklist: "/manus-storage/art-checklist_2be10aed.jpg",
+  hero_dad_forum: `${MANUS_ASSET_BASE}hero-dad-forum_3f878bbf.jpg`,
+  hero_dad_hub: `${MANUS_ASSET_BASE}hero-dad-hub_778155a5.jpg`,
+  article_sleep: `${MANUS_ASSET_BASE}art-massage_f900a579.jpg`,
+  article_anxiety: `${MANUS_ASSET_BASE}art-emotions_cc1f2d1f.jpg`,
+  article_labor: `${MANUS_ASSET_BASE}art-birth-plan_9cdf80e7.jpg`,
+  banner_hospital: `${MANUS_ASSET_BASE}banner-hospital_9fe0f518.jpg`,
+  library_books: `${MANUS_ASSET_BASE}library-books_8bc5af26.jpg`,
+  banner_communication: `${MANUS_ASSET_BASE}banner-communication_a8926c4e.jpg`,
+  banner_emotional: `${MANUS_ASSET_BASE}banner-emotional_5cb0d012.jpg`,
+  banner_practical: `${MANUS_ASSET_BASE}banner-practical_c0966f2b.jpg`,
+  art_fetal_kick: `${MANUS_ASSET_BASE}art-fetal-kick_eb4e898d.jpg`,
+  art_birth_plan: `${MANUS_ASSET_BASE}art-birth-plan_9cdf80e7.jpg`,
+  art_massage: `${MANUS_ASSET_BASE}art-massage_f900a579.jpg`,
+  art_hospital_bag: `${MANUS_ASSET_BASE}art-hospital-bag_46a7fd31.jpg`,
+  art_breathing: `${MANUS_ASSET_BASE}art-breathing_40edfa50.jpg`,
+  art_communication: `${MANUS_ASSET_BASE}art-communication_90411e4b.jpg`,
+  art_nutrition: `${MANUS_ASSET_BASE}art-nutrition_87e071fc.jpg`,
+  art_emotions: `${MANUS_ASSET_BASE}art-emotions_cc1f2d1f.jpg`,
+  art_checklist: `${MANUS_ASSET_BASE}art-checklist_2be10aed.jpg`,
 };
 
 // ─── Forum Posts ──────────────────────────────────────────────────────────────

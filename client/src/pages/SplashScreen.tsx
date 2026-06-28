@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { PapaPathMark } from "@/components/PapaPathLogo";
 
-const COUPLE_IMG = "/manus-storage/papapath-couple_680d541c.png";
+const COUPLE_IMG = `${import.meta.env.BASE_URL}assets/manus/papapath-couple_680d541c.png`;
 
 const TEAM_AVATARS = [
   {
@@ -28,7 +29,10 @@ const TEAM_AVATARS = [
   },
 ];
 
-// Decorative SVG leaf branch
+type SplashScreenProps = {
+  onDone?: () => void;
+};
+
 function LeafBranch({ flip = false }: { flip?: boolean }) {
   return (
     <svg
@@ -46,45 +50,23 @@ function LeafBranch({ flip = false }: { flip?: boolean }) {
   );
 }
 
-// PapaPath logo mark SVG
-function LogoMark() {
-  return (
-    <div className="relative flex items-center justify-center">
-      <svg width="80" height="90" viewBox="0 0 80 90" fill="none">
-        <path
-          d="M10 85 L10 40 Q10 10 40 10 Q70 10 70 40 L70 85"
-          stroke="#c8a87a"
-          strokeWidth="1.5"
-          fill="none"
-        />
-        <path
-          d="M18 85 L18 42 Q18 18 40 18 Q62 18 62 42 L62 85"
-          stroke="#e8c89a"
-          strokeWidth="0.8"
-          fill="none"
-          opacity="0.5"
-        />
-        <ellipse cx="40" cy="38" rx="7" ry="7" fill="#3a5a3a" />
-        <path d="M33 45 Q30 58 32 70 L48 70 Q50 58 47 45 Z" fill="#3a5a3a" />
-        <ellipse cx="44" cy="60" rx="8" ry="7" fill="#3a5a3a" />
-        <circle cx="44" cy="60" r="3.5" fill="#d4784a" />
-        <path d="M44 45 Q52 38 48 32 Q42 36 44 45 Z" fill="#5a8a5a" />
-      </svg>
-    </div>
-  );
-}
-
-export default function SplashScreen() {
+export default function SplashScreen({ onDone }: SplashScreenProps) {
   const [, navigate] = useLocation();
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setReady(true), 100);
-    return () => clearTimeout(t);
+    const timer = window.setTimeout(() => setReady(true), 100);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const handleGetStarted = () => {
     sessionStorage.setItem("splash_seen", "1");
+
+    if (onDone) {
+      onDone();
+      return;
+    }
+
     navigate("/");
   };
 
@@ -96,7 +78,6 @@ export default function SplashScreen() {
         fontFamily: "'DM Serif Display', Georgia, serif",
       }}
     >
-      {/* Decorative blobs */}
       <div
         className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-30 pointer-events-none"
         style={{ background: "radial-gradient(circle, #d4c4a8 0%, transparent 70%)", transform: "translate(30%, -30%)" }}
@@ -106,7 +87,6 @@ export default function SplashScreen() {
         style={{ background: "radial-gradient(circle, #c8b898 0%, transparent 70%)", transform: "translate(-40%, 0)" }}
       />
 
-      {/* ── Logo + Title ── */}
       <AnimatePresence>
         {ready && (
           <motion.div
@@ -117,7 +97,9 @@ export default function SplashScreen() {
           >
             <div className="flex items-center gap-1 mb-1">
               <LeafBranch />
-              <LogoMark />
+              <div style={{ filter: "drop-shadow(0 8px 14px rgba(60, 40, 20, 0.12))" }}>
+                <PapaPathMark className="h-20 w-20" />
+              </div>
               <LeafBranch flip />
             </div>
 
@@ -143,14 +125,12 @@ export default function SplashScreen() {
         )}
       </AnimatePresence>
 
-      {/* ── Hero couple image ── */}
       <motion.div
         className="relative z-10 flex items-end justify-center mt-4"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: ready ? 1 : 0, scale: ready ? 1 : 0.95 }}
         transition={{ delay: 0.3, duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
       >
-        {/* Soft oval platform */}
         <div
           className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-full"
           style={{ width: 260, height: 80, background: "rgba(255,255,255,0.55)", filter: "blur(3px)" }}
@@ -163,7 +143,6 @@ export default function SplashScreen() {
         />
       </motion.div>
 
-      {/* ── Get started button ── */}
       <motion.div
         className="w-full max-w-sm px-6 pt-6 pb-4 z-10"
         initial={{ opacity: 0, y: 20 }}
@@ -184,7 +163,6 @@ export default function SplashScreen() {
         </button>
       </motion.div>
 
-      {/* ── Design team ── */}
       <motion.div
         className="w-full max-w-sm px-6 pb-10 z-10"
         initial={{ opacity: 0 }}
@@ -200,15 +178,14 @@ export default function SplashScreen() {
         </div>
 
         <div className="grid grid-cols-4 gap-3">
-          {TEAM_AVATARS.map((member, i) => (
+          {TEAM_AVATARS.map((member, index) => (
             <motion.div
               key={member.name}
               className="flex flex-col items-center gap-1.5"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 12 }}
-              transition={{ delay: 1.0 + i * 0.08, duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
+              transition={{ delay: 1.0 + index * 0.08, duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
             >
-              {/* Avatar circle */}
               <div
                 className="rounded-full overflow-hidden shadow-md"
                 style={{
@@ -224,7 +201,6 @@ export default function SplashScreen() {
                   className="w-full h-full object-cover object-top"
                 />
               </div>
-
             </motion.div>
           ))}
         </div>

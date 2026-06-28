@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Router as WouterRouter, Switch, useLocation } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CareProvider } from "./contexts/CareContext";
@@ -26,27 +26,31 @@ import PostDetail from "./pages/PostDetail";
 import Settings from "./pages/Settings";
 import SplashScreen from "./pages/SplashScreen";
 
-/** Redirect to /splash on first visit of each session */
-function SplashRedirect() {
-  const [location, navigate] = useLocation();
+function Router() {
+  const [location] = useLocation();
+  const [showSplash, setShowSplash] = useState(() => {
+    try {
+      return window.location.pathname.endsWith("/") && !sessionStorage.getItem("splash_seen");
+    } catch {
+      return false;
+    }
+  });
+
   useEffect(() => {
-    if (import.meta.env.BASE_URL !== "/") {
+    if (location !== "/") {
+      setShowSplash(false);
       return;
     }
 
-    // Only redirect when landing on root path and splash hasn't been seen yet
-    if (location === "/" && !sessionStorage.getItem("splash_seen")) {
-      navigate("/splash", { replace: true });
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  return null;
-}
+    setShowSplash(!sessionStorage.getItem("splash_seen"));
+  }, [location]);
 
-function Router() {
+  if (showSplash) {
+    return <SplashScreen onDone={() => setShowSplash(false)} />;
+  }
+
   return (
-    <>
-      <SplashRedirect />
-      <Switch>
+    <Switch>
       <Route path={"/splash"} component={SplashScreen} />
       <Route path={"/"} component={Home} />
       <Route path={"/mom-status"} component={MomStatusPage} />
@@ -73,7 +77,6 @@ function Router() {
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
-    </>
   );
 }
 
