@@ -150,10 +150,16 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+const isGitHubPages = process.env.GITHUB_PAGES === "true";
+const plugins = [
+  react(),
+  tailwindcss(),
+  jsxLocPlugin(),
+  ...(isGitHubPages ? [] : [vitePluginManusRuntime(), vitePluginManusDebugCollector()]),
+];
 
 export default defineConfig({
-  base: process.env.GITHUB_PAGES === "true" ? "/PapaPath/" : "/",
+  base: isGitHubPages ? "/PapaPath/" : "/",
   plugins,
   resolve: {
     alias: {
